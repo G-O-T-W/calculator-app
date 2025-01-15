@@ -30,7 +30,6 @@ function operate(operator, leftOperand, rightOperand) {
             break;
         }
         case '/': {
-            log("hi");
             ans = divide(leftOperand, rightOperand);
         }
     }
@@ -42,10 +41,44 @@ function sendToDisplay(buttonPressed) {
     display.textContent += buttonPressed;
 }
 
+function parseOperands() {
+    if (!isFloat) {
+        leftOperand = parseInt(display.textContent.split(operator)[0]);
+        rightOperand = parseInt(display.textContent.split(operator)[1]);
+    } else {
+        leftOperand = parseFloat(display.textContent.split(operator)[0]);
+        rightOperand = parseFloat(display.textContent.split(operator)[1]);
+    }
+}
+
+function parseResult() {
+    // float % 1 will always give a remainder
+    if (!Number.isInteger(result)) {
+        log("hi");
+        result = parseFloat(result.toFixed(3));
+        // set the flag to true if the result is floating type
+        isFloat = true;
+    } else {
+        log("hello");
+        // set the flag to false if the result is integer type
+        isFloat = false;
+    }    
+}
+
+function operateEventHandler() {
+    parseOperands();
+    result = operate(operator, leftOperand, rightOperand);
+    parseResult();
+    // logging 
+    log(`${leftOperand} ${operator} ${rightOperand} = ${result}`);
+    log(`Is result decimal? ${isFloat}`);
+    display.textContent = result;
+}
+
 // logging function
 function log(message) {
     console.log(message);
-}
+}    
 
 const display = document.querySelector(".display");
 let isFloat = false;
@@ -55,38 +88,21 @@ let leftOperand, rightOperand, operator;
 const numericButtons = document.querySelectorAll("button.keys");
 numericButtons.forEach(button => {
     button.addEventListener("click", () => sendToDisplay(button.textContent));
-});
+});    
 
 const operatorButtons = document.querySelectorAll("button.operator")
 operatorButtons.forEach(button => {
     // Our code parses for only one operator at a time
     button.addEventListener("click", () => {
-        operator = button.textContent
-    });
-});
+        operator = button.textContent;
+    });    
+});    
 
 const decimalButton = document.querySelector("#decimal");
 decimalButton.addEventListener("click", () => isFloat = true);
 
 const operateKey = document.querySelector("#operate");
-operateKey.addEventListener("click", () => {
-    if (!isFloat) {
-        leftOperand = parseInt(display.textContent.split(operator)[0]);
-        rightOperand = parseInt(display.textContent.split(operator)[1]);
-    } else {
-        leftOperand = parseFloat(display.textContent.split(operator)[0]);
-        rightOperand = parseFloat(display.textContent.split(operator)[1]);
-    }
-    result = operate(operator, leftOperand, rightOperand);
-    log(typeof result);
-    if (!Number.isInteger(result)) {
-        result = result.toFixed(3);
-    }
-    display.textContent = result;
-    // reset the flag to for next operate
-    isFloat = false;
-    // 
-    operator = undefined;
-});
+operateKey.addEventListener("click", operateEventHandler);  
+
 
 //operate(operator, leftOperand, rightOperand)
