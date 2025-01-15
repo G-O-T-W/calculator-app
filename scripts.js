@@ -73,6 +73,8 @@ function operateEventHandler() {
     log(`${leftOperand} ${operator} ${rightOperand} = ${result}`);
     log(`Is result decimal? ${isFloat}`);
     display.textContent = result;
+    // to handle multiple operators
+    operator = undefined;
 }
 
 // logging function
@@ -92,9 +94,13 @@ numericButtons.forEach(button => {
 
 const operatorButtons = document.querySelectorAll("button.operator")
 operatorButtons.forEach(button => {
-    // Our code parses for only one operator at a time
     button.addEventListener("click", () => {
+        // This handles the case multiple operators are pressed
+        if (operator) {
+            operateEventHandler();
+        } 
         operator = button.textContent;
+        sendToDisplay(operator);
     });    
 });    
 
@@ -105,4 +111,3 @@ const operateKey = document.querySelector("#operate");
 operateKey.addEventListener("click", operateEventHandler);  
 
 
-//operate(operator, leftOperand, rightOperand)
