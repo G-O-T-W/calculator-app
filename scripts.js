@@ -109,12 +109,18 @@ operatorKeys.forEach(button => {
 
 const equalsToKey = document.querySelector("#equalsToKey");
 equalsToKey.addEventListener("click", () => {
-    result = getResult();
-    clearDisplay();
-    sendToDisplay(result);
-    // console logging
-    log(`${leftOperand} ${operator} ${rightOperand} = ${result}`);
-    clearValues();
+    if (
+        leftOperand != undefined
+        && operator != undefined
+        && display.textContent !== ""
+    ) {
+        result = getResult();
+        clearDisplay();
+        sendToDisplay(result);
+        // console logging
+        log(`${leftOperand} ${operator} ${rightOperand} = ${result}`);
+        clearValues();
+    }
 });
 
 // const allClearKey = document.querySelector()
