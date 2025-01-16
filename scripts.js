@@ -161,5 +161,11 @@ decimalPointKey.addEventListener("click", () => {
     if (!display.textContent.includes(".")) {
         sendToDisplay(decimalPointKey.textContent);
     }
-})
+});
+
+const deleteKey = document.querySelector("#deleteKey");
+deleteKey.addEventListener("click", () => {
+    // slice(start, end) will extract string from index <start> to <end - 1>
+    display.textContent = display.textContent.slice(0,-1);
+});
 
