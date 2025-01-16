@@ -68,7 +68,7 @@ function log(message) {
 }    
 
 const display = document.querySelector(".display");
-let leftOperand, rightOperand, operator, 
+let leftOperand, rightOperand, operator, result
 isFloat = false, multipleOperatorExists = false;
 
 const numericKeys = document.querySelectorAll("button.numericKeys");
@@ -89,11 +89,24 @@ numericKeys.forEach(button => {
 const operatorKeys = document.querySelectorAll("button.operatorKeys")
 operatorKeys.forEach(button => {
     button.addEventListener("click", () => {
-        if (leftOperand == undefined && operator == undefined) {
+        // For case <operand> <operator> eg: 1 +
+        if (
+            leftOperand === undefined 
+            && operator === undefined
+            && display.textContent !== ""
+        ) {
+            log("<operand> <operator> eg: 1 +")
             leftOperand = parseFloat(display.textContent);
             operator = button.textContent;
             clearDisplay();
-        } else if (!multipleOperatorExists) {
+        } else if (
+            // For case <operand> <operator> <operand> <operator> eg: 1 + 1 +
+            leftOperand !== undefined
+            && operator !== undefined
+            && display.textContent !== ""
+            && !multipleOperatorExists
+        ) {
+            log("<operand> <operator> <operand> <operator> eg: 1 + 1 +");
             multipleOperatorExists = true;
             result = getResult();
             clearDisplay();
@@ -102,8 +115,15 @@ operatorKeys.forEach(button => {
             log(`${leftOperand} ${operator} ${rightOperand} = ${result}`);
             leftOperand = result;
             operator = button.textContent;
-        } else {
-            operator = button.textContent
+        } else if (
+            // For case <operand> <operator> eg: 1 + -
+            leftOperand !== undefined
+            && operator !== undefined
+            && (parseFloat(display.textContent) == result 
+            || display.textContent === "") 
+        ) {
+            log("<operand> <operator> eg: ... 1 + -");
+            operator = button.textContent;
         }
     });   
 });    
