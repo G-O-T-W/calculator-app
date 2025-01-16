@@ -35,6 +35,7 @@ function operate(operator, leftOperand, rightOperand) {
                 ans = divide(leftOperand, rightOperand);
             } else {
                 alert("You cannot divide with zero!");
+                resetValues();
                 ans = 0;
             }
         }
@@ -71,15 +72,14 @@ function log(message) {
 }    
 
 const display = document.querySelector(".display");
-let leftOperand, rightOperand, operator, result,
-multipleOperatorExists = false;
+let leftOperand, rightOperand, operator, result, multipleOperatorExists = false;
 
 const numericKeys = document.querySelectorAll("button.numericKeys");
 numericKeys.forEach(button => {
     button.addEventListener("click", () => {
         // If display has zero then we need to remove that preceding zero
         if (
-            display.textContent == 0 
+            display.textContent === "0" 
             || multipleOperatorExists 
             ) {
             clearDisplay();
@@ -158,8 +158,13 @@ allClearKey.addEventListener("click", () => {
 
 const decimalPointKey = document.querySelector("#decimalPointKey");
 decimalPointKey.addEventListener("click", () => {
-    if (!display.textContent.includes(".")) {
-        sendToDisplay(decimalPointKey.textContent);
+    if (!display.textContent.includes(".")) {2
+        // Change "." to "0." when display is empty
+        if (display.textContent === "") {
+            sendToDisplay("0.")
+        } else {
+            sendToDisplay(decimalPointKey.textContent);
+        }
     }
 });
 
