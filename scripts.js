@@ -68,6 +68,11 @@ function resetCalculator() {
     operator = undefined;
 }
 
+function getResult() {
+    rightOperand = parseTextToNumber(display.textContent);
+    return parseResult(operate(operator, leftOperand, rightOperand));
+}
+
 // logging function
 function log(message) {
     console.log(message);
@@ -79,6 +84,10 @@ let leftOperand, rightOperand, operator;
 const numericKeys = document.querySelectorAll("button.numericKeys");
 numericKeys.forEach(button => {
     button.addEventListener("click", () => {
+        // If display has zero then we need to remove that preceding zero
+        if (display.textContent == 0) {
+            clearDisplay();
+        }
         // The current width of display can hold 14 digits at max
         if (display.textContent.length <= 14) {
             sendToDisplay(button.textContent);
@@ -89,11 +98,19 @@ numericKeys.forEach(button => {
 const operatorKeys = document.querySelectorAll("button.operatorKeys")
 operatorKeys.forEach(button => {
     button.addEventListener("click", () => {
-        // This handles the case multiple operators are pressed
         if (operator === undefined) {
             leftOperand = parseTextToNumber(display.textContent);
             operator = button.textContent;
             clearDisplay();
+        } else if (display.textContent != "") {
+            log(`operator is: ${operator}`)
+            // Second operator will function like an equalsTo key
+            result = getResult();
+            clearDisplay();
+            sendToDisplay(result);
+            // console display
+            log(`${leftOperand} ${operator} ${rightOperand} = ${result}`);
+            resetCalculator();
         } 
     });    
 });    
@@ -105,9 +122,8 @@ equalsToKey.addEventListener("click", () => {
         && operator !== undefined
         && display.textContent !== ""
     ) {
-        rightOperand = parseTextToNumber(display.textContent);
+        result = getResult();
         clearDisplay();
-        result = parseResult(operate(operator, leftOperand, rightOperand));
         sendToDisplay(result);
         // console display
         log(`${leftOperand} ${operator} ${rightOperand} = ${result}`);
