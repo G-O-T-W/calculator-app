@@ -89,20 +89,21 @@ numericKeys.forEach(button => {
 const operatorKeys = document.querySelectorAll("button.operatorKeys")
 operatorKeys.forEach(button => {
     button.addEventListener("click", () => {
-        if (operator) {
+        if (leftOperand == undefined && operator == undefined) {
+            leftOperand = parseFloat(display.textContent);
+            operator = button.textContent;
+            clearDisplay();
+        } else if (!multipleOperatorExists) {
             multipleOperatorExists = true;
             result = getResult();
             clearDisplay();
             sendToDisplay(result);
             // console logging
             log(`${leftOperand} ${operator} ${rightOperand} = ${result}`);
-            clearValues();
-            leftOperand = parseFloat(display.textContent);
+            leftOperand = result;
             operator = button.textContent;
         } else {
-            leftOperand = parseFloat(display.textContent);
-            operator = button.textContent;
-            clearDisplay();
+            operator = button.textContent
         }
     });   
 });    
