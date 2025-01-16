@@ -30,50 +30,41 @@ function operate(operator, leftOperand, rightOperand) {
             break;
         }
         case '/': {
-            ans = divide(leftOperand, rightOperand);
+            if (rightOperand != 0) {
+                ans = divide(leftOperand, rightOperand);
+            } else {
+                alert("You cannot divide with zero!")
+            }
         }
     }
     return ans;
 }
 
-function sendToDisplay(buttonPressed) {
+function sendToDisplay(keyPressed) {
     // log(button.textContent);
-    display.textContent += buttonPressed;
+    display.textContent += keyPressed;
 }
 
-function parseOperands() {
-    if (!isFloat) {
-        leftOperand = parseInt(display.textContent.split(operator)[0]);
-        rightOperand = parseInt(display.textContent.split(operator)[1]);
+function clearDisplay() {
+    display.textContent = "";
+}
+
+function parseTextToNumber(text) {
+    return parseInt(text);
+}
+
+function parseResult(number) {
+    if (operator == "/") {
+        return parseFloat(number.toFixed(3));
     } else {
-        leftOperand = parseFloat(display.textContent.split(operator)[0]);
-        rightOperand = parseFloat(display.textContent.split(operator)[1]);
+        return number;
     }
+
 }
 
-function parseResult() {
-    // float % 1 will always give a remainder
-    if (!Number.isInteger(result)) {
-        log("hi");
-        result = parseFloat(result.toFixed(3));
-        // set the flag to true if the result is floating type
-        isFloat = true;
-    } else {
-        log("hello");
-        // set the flag to false if the result is integer type
-        isFloat = false;
-    }    
-}
-
-function operateEventHandler() {
-    parseOperands();
-    result = operate(operator, leftOperand, rightOperand);
-    parseResult();
-    // logging 
-    log(`${leftOperand} ${operator} ${rightOperand} = ${result}`);
-    log(`Is result decimal? ${isFloat}`);
-    display.textContent = result;
-    // to handle multiple operators
+function resetCalculator() {
+    leftOperand = undefined;
+    rightOperand = undefined;
     operator = undefined;
 }
 
@@ -83,31 +74,45 @@ function log(message) {
 }    
 
 const display = document.querySelector(".display");
-let isFloat = false;
-let result;
 let leftOperand, rightOperand, operator;
 
-const numericButtons = document.querySelectorAll("button.keys");
-numericButtons.forEach(button => {
-    button.addEventListener("click", () => sendToDisplay(button.textContent));
-});    
+const numericKeys = document.querySelectorAll("button.numericKeys");
+numericKeys.forEach(button => {
+    button.addEventListener("click", () => {
+        // The current width of display can hold 14 digits at max
+        if (display.textContent.length <= 14) {
+            sendToDisplay(button.textContent);
+        }
+    });  
+});  
 
-const operatorButtons = document.querySelectorAll("button.operator")
-operatorButtons.forEach(button => {
+const operatorKeys = document.querySelectorAll("button.operatorKeys")
+operatorKeys.forEach(button => {
     button.addEventListener("click", () => {
         // This handles the case multiple operators are pressed
-        if (operator) {
-            operateEventHandler();
+        if (operator === undefined) {
+            leftOperand = parseTextToNumber(display.textContent);
+            operator = button.textContent;
+            clearDisplay();
         } 
-        operator = button.textContent;
-        sendToDisplay(operator);
     });    
 });    
 
-const decimalButton = document.querySelector("#decimal");
-decimalButton.addEventListener("click", () => isFloat = true);
+const equalsToKey = document.querySelector("#equalsToKey");
+equalsToKey.addEventListener("click", () => {
+    if (
+        leftOperand !== undefined
+        && operator !== undefined
+        && display.textContent !== ""
+    ) {
+        rightOperand = parseTextToNumber(display.textContent);
+        clearDisplay();
+        result = parseResult(operate(operator, leftOperand, rightOperand));
+        sendToDisplay(result);
+        // console display
+        log(`${leftOperand} ${operator} ${rightOperand} = ${result}`);
+        resetCalculator();
+    }
+});
 
-const operateKey = document.querySelector("#operate");
-operateKey.addEventListener("click", operateEventHandler);  
-
-
+// const allClearKey = document.querySelector()
