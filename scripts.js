@@ -11,6 +11,7 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
+    isFloat = true;
     return a / b;
 }
 
@@ -49,28 +50,16 @@ function clearDisplay() {
     display.textContent = "";
 }
 
-function parseTextToNumber(text) {
-    return parseInt(text);
-}
-
-function parseResult(number) {
-    if (operator == "/") {
-        return parseFloat(number.toFixed(3));
-    } else {
-        return number;
-    }
-
-}
-
-function resetCalculator() {
+function clearValues() {
     leftOperand = undefined;
     rightOperand = undefined;
     operator = undefined;
+    result = undefined;
 }
 
 function getResult() {
-    rightOperand = parseTextToNumber(display.textContent);
-    return parseResult(operate(operator, leftOperand, rightOperand));
+    rightOperand = parseFloat(display.textContent);
+    return parseFloat(operate(operator, leftOperand, rightOperand).toFixed(3));
 }
 
 // logging function
@@ -79,14 +68,16 @@ function log(message) {
 }    
 
 const display = document.querySelector(".display");
-let leftOperand, rightOperand, operator;
+let leftOperand, rightOperand, operator, 
+isFloat = false, multipleOperatorExists = false;
 
 const numericKeys = document.querySelectorAll("button.numericKeys");
 numericKeys.forEach(button => {
     button.addEventListener("click", () => {
         // If display has zero then we need to remove that preceding zero
-        if (display.textContent == 0) {
+        if (display.textContent == 0 || multipleOperatorExists) {
             clearDisplay();
+            multipleOperatorExists = false;
         }
         // The current width of display can hold 14 digits at max
         if (display.textContent.length <= 14) {
@@ -98,37 +89,32 @@ numericKeys.forEach(button => {
 const operatorKeys = document.querySelectorAll("button.operatorKeys")
 operatorKeys.forEach(button => {
     button.addEventListener("click", () => {
-        if (operator === undefined) {
-            leftOperand = parseTextToNumber(display.textContent);
-            operator = button.textContent;
-            clearDisplay();
-        } else if (display.textContent != "") {
-            log(`operator is: ${operator}`)
-            // Second operator will function like an equalsTo key
+        if (operator) {
+            multipleOperatorExists = true;
             result = getResult();
             clearDisplay();
             sendToDisplay(result);
-            // console display
+            // console logging
             log(`${leftOperand} ${operator} ${rightOperand} = ${result}`);
-            resetCalculator();
-        } 
-    });    
+            clearValues();
+            leftOperand = parseFloat(display.textContent);
+            operator = button.textContent;
+        } else {
+            leftOperand = parseFloat(display.textContent);
+            operator = button.textContent;
+            clearDisplay();
+        }
+    });   
 });    
 
 const equalsToKey = document.querySelector("#equalsToKey");
 equalsToKey.addEventListener("click", () => {
-    if (
-        leftOperand !== undefined
-        && operator !== undefined
-        && display.textContent !== ""
-    ) {
-        result = getResult();
-        clearDisplay();
-        sendToDisplay(result);
-        // console display
-        log(`${leftOperand} ${operator} ${rightOperand} = ${result}`);
-        resetCalculator();
-    }
+    result = getResult();
+    clearDisplay();
+    sendToDisplay(result);
+    // console logging
+    log(`${leftOperand} ${operator} ${rightOperand} = ${result}`);
+    clearValues();
 });
 
 // const allClearKey = document.querySelector()
