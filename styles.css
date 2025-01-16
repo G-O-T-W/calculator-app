@@ -23,6 +23,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 16px;
+    background-color: rgb(34, 34, 46);
 }
 
 .display {
@@ -33,6 +34,7 @@ body {
     display: flex;
     justify-content: flex-end;
     align-items: end;
+    background-color: white;
 }
 
 .firstrow {
@@ -51,10 +53,23 @@ body {
 button {
     width: 64px;
     height: 64px;
+    color: white;
+    background-color: darkslategray;
+    font-weight: 1000;
+    font-size: 24px;
 }
 
 .footer {
     padding: 8px;
     text-align: center;
     font-weight: 500;
+}
+
+#allClearKey {
+    background-color: tomato;
+}
+
+.numericKeys,
+#decimalPointKey {
+    background-color: lightslategray;
 }
