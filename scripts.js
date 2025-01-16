@@ -51,11 +51,13 @@ function clearDisplay() {
     display.textContent = "";
 }
 
-function clearValues() {
+function resetValues() {
     leftOperand = undefined;
     rightOperand = undefined;
     operator = undefined;
     result = undefined;
+    isFloat = false;
+    multipleOperatorExists = false;
 }
 
 function getResult() {
@@ -69,14 +71,17 @@ function log(message) {
 }    
 
 const display = document.querySelector(".display");
-let leftOperand, rightOperand, operator, result
-isFloat = false, multipleOperatorExists = false;
+let leftOperand, rightOperand, operator, result,
+multipleOperatorExists = false;
 
 const numericKeys = document.querySelectorAll("button.numericKeys");
 numericKeys.forEach(button => {
     button.addEventListener("click", () => {
         // If display has zero then we need to remove that preceding zero
-        if (display.textContent == 0 || multipleOperatorExists) {
+        if (
+            display.textContent == 0 
+            || multipleOperatorExists 
+            ) {
             clearDisplay();
             multipleOperatorExists = false;
         }
@@ -141,14 +146,20 @@ equalsToKey.addEventListener("click", () => {
         sendToDisplay(result);
         // console logging
         log(`${leftOperand} ${operator} ${rightOperand} = ${result}`);
-        clearValues();
+        resetValues();
     }
 });
 
 const allClearKey = document.querySelector("#allClearKey");
 allClearKey.addEventListener("click", () => {
-    clearValues();
+    resetValues();
     clearDisplay();
 });
 
+const decimalPointKey = document.querySelector("#decimalPointKey");
+decimalPointKey.addEventListener("click", () => {
+    if (!display.textContent.includes(".")) {
+        sendToDisplay(decimalPointKey.textContent);
+    }
+})
 
