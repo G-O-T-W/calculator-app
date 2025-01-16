@@ -144,4 +144,10 @@ equalsToKey.addEventListener("click", () => {
     }
 });
 
-// const allClearKey = document.querySelector()
+const allClearKey = document.querySelector("#allClearKey");
+allClearKey.addEventListener("click", () => {
+    clearValues();
+    clearDisplay();
+});
+
+
