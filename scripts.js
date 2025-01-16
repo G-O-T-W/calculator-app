@@ -34,7 +34,8 @@ function operate(operator, leftOperand, rightOperand) {
             if (rightOperand != 0) {
                 ans = divide(leftOperand, rightOperand);
             } else {
-                alert("You cannot divide with zero!")
+                alert("You cannot divide with zero!");
+                ans = 0;
             }
         }
     }
