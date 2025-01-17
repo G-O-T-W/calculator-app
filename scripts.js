@@ -43,9 +43,14 @@ function operate(operator, leftOperand, rightOperand) {
     return ans;
 }
 
-function sendToDisplay(keyPressed) {
-    // log(button.textContent);
-    display.textContent += keyPressed;
+function sendToDisplay(displayText) {
+    // displayText is a string in all cases
+    if (displayText.length <= 11) {
+        display.textContent += displayText;
+    } else {
+        // to display bigInt results
+        display.textContent = Number.parseFloat(displayText).toExponential(3);
+    }
 }
 
 function clearDisplay() {
@@ -116,7 +121,8 @@ operatorKeys.forEach(button => {
             multipleOperatorExists = true;
             result = getResult();
             clearDisplay();
-            sendToDisplay(result);
+            // convert number to string to check if the result overflows display
+            sendToDisplay(String(result));
             // console logging
             log(`${leftOperand} ${operator} ${rightOperand} = ${result}`);
             leftOperand = result;
@@ -143,7 +149,8 @@ equalsToKey.addEventListener("click", () => {
     ) {
         result = getResult();
         clearDisplay();
-        sendToDisplay(result);
+        // convert number to string to check if the result overflows display
+        sendToDisplay(String(result));
         // console logging
         log(`${leftOperand} ${operator} ${rightOperand} = ${result}`);
         resetValues();
@@ -161,7 +168,7 @@ decimalPointKey.addEventListener("click", () => {
     if (!display.textContent.includes(".")) {2
         // Change "." to "0." when display is empty
         if (display.textContent === "") {
-            sendToDisplay("0.")
+            sendToDisplay("0.");
         } else {
             sendToDisplay(decimalPointKey.textContent);
         }
