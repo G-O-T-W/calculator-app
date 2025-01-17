@@ -90,3 +90,43 @@ button {
     font-family: 'Limelight', 'Josefin Sans', sans;
     
 }
+
+ul {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 16px;
+}
+
+li {
+    list-style-type: none;
+    color: white;
+    font-size: 24px;
+    font-family: 'Limelight', Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.header {
+    padding: 16px 16px;
+    background-color: rgba(34, 34, 46, 0.604);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-family: 'Limelight', 'Audiowide', serif;
+    font-weight: 900;
+    font-size: 48px;
+    color: white;
+}
+
+
