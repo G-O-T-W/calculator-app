@@ -1,3 +1,7 @@
+@import url('https://fonts.googleapis.com/css?family=Tangerine');
+@import url('https://fonts.googleapis.com/css2?family=Limelight&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
+
 body {
     box-sizing: border-box;
     padding: 0;
@@ -17,6 +21,7 @@ body {
 
 .container-calculator {
     border: 1px solid black;
+    border-radius: 1%;
     padding: 32px 16px;
     /* max-width = 256(buttonwidth) + 32(outer padding) + 24(inner padding) */
     max-width: 312px;
@@ -30,18 +35,20 @@ body {
     border: 1px solid black;
     height: 64px;
     padding: 8px;
+    font-family: 'Audiowide';
     font-size: 32px;
+    font-weight: 400;
     display: flex;
     justify-content: flex-end;
     align-items: end;
-    background-color: white;
+    background-color: rgba(118, 130, 110, 0.891);
 }
 
 .firstrow {
     margin-bottom: 8px;
     display: flex;
     gap: 8px;
-    justify-content: flex-end;
+    justify-content: space-between;
 }
 
 .otherrows {
@@ -57,12 +64,14 @@ button {
     background-color: darkslategray;
     font-weight: 1000;
     font-size: 24px;
+    border-radius: 50%;
 }
 
 .footer {
     padding: 8px;
     text-align: center;
     font-weight: 500;
+    font-family: 'Josefin Sans', serif;
 }
 
 #allClearKey {
@@ -72,4 +81,12 @@ button {
 .numericKeys,
 #decimalPointKey {
     background-color: lightslategray;
+}
+
+#branding {
+    align-self: center;
+    font-size: 32px;
+    color: white;
+    font-family: 'Limelight', 'Josefin Sans', sans;
+    
 }

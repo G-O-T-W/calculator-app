@@ -86,7 +86,7 @@ numericKeys.forEach(button => {
             multipleOperatorExists = false;
         }
         // The current width of display can hold 14 digits at max
-        if (display.textContent.length <= 14) {
+        if (display.textContent.length < 11) {
             sendToDisplay(button.textContent);
         }
     });  
@@ -229,6 +229,9 @@ window.addEventListener("keydown", function (e) {
             break;
         case "Backspace":
             btn = this.document.querySelector("#deleteKey");
+            break;
+        case ".":
+            btn = this.document.querySelector("#decimalPointKey");
     }
     if (btn) {
         log(`Keyboard => ${btn.textContent}`);
