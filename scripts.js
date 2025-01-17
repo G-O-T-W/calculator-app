@@ -174,3 +174,64 @@ deleteKey.addEventListener("click", () => {
     display.textContent = display.textContent.slice(0,-1);
 });
 
+let clickEvent = new MouseEvent('click', {
+    bubbles: true,
+    cancelable: true
+});
+window.addEventListener("keydown", function (e) {
+    let btn;
+    switch (e.key) {
+        case "0":
+            btn = document.querySelector("#zero");
+            break;
+        case "1":
+            btn = document.querySelector("#one");
+            break;
+        case "2":
+            btn = this.document.querySelector("#two");
+            break;
+        case "3":
+            btn = this.document.querySelector("#three");
+            break;
+        case "4":
+            btn = this.document.querySelector("#four");
+            break;
+        case "5":
+            btn = this.document.querySelector("#five");
+            break;
+        case "6":
+            btn = this.document.querySelector("#six");
+            break;
+        case "7":
+            btn = this.document.querySelector("#seven");
+            break;
+        case "8":
+            btn = this.document.querySelector("#eight");
+            break;
+        case "9":
+            btn = this.document.querySelector("#nine");
+            break;
+        case "+":
+            btn = this.document.querySelector("#plus");
+            break;
+        case "-":
+            btn = this.document.querySelector("#subtract");
+            break;
+        case "/":
+            btn = this.document.querySelector("#divide");
+            break;
+        case "*":
+            btn = this.document.querySelector("#multiply");
+            break;
+        case "=":
+        case "Enter":
+            btn = this.document.querySelector("#equalsToKey");
+            break;
+        case "Backspace":
+            btn = this.document.querySelector("#deleteKey");
+    }
+    if (btn) {
+        log(`Keyboard => ${btn.textContent}`);
+        btn.dispatchEvent(clickEvent);
+    }
+});
