@@ -45,7 +45,7 @@ function operate(operator, leftOperand, rightOperand) {
 
 function sendToDisplay(displayText) {
     // displayText is a string in all cases
-    if (displayText.length <= 11) {
+    if (displayText.length <= 13) {
         display.textContent += displayText;
     } else {
         // to display bigInt results
@@ -90,8 +90,8 @@ numericKeys.forEach(button => {
             clearDisplay();
             multipleOperatorExists = false;
         }
-        // The current width of display can hold 14 digits at max
-        if (display.textContent.length < 11) {
+        // The current width of display can hold 13 digits at max
+        if (display.textContent.length < 13) {
             sendToDisplay(button.textContent);
         }
     });  

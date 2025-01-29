@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Tangerine');
 @import url('https://fonts.googleapis.com/css2?family=Limelight&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&display=swap');
 
 body {
     box-sizing: border-box;
@@ -9,7 +9,7 @@ body {
     display: flex;
     height: 100vh;
     flex-direction: column;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-family: Impact, sans-serif;
 }
 
 .container {
@@ -23,7 +23,6 @@ body {
     border: 1px solid black;
     border-radius: 1%;
     padding: 32px 16px;
-    /* max-width = 256(buttonwidth) + 32(outer padding) + 24(inner padding) */
     max-width: 312px;
     display: flex;
     flex-direction: column;
@@ -34,10 +33,10 @@ body {
 .display {
     border: 1px solid black;
     height: 64px;
-    padding: 8px;
-    font-family: 'Audiowide';
+    padding: 14px;
+    font-family: "IBM Plex Mono", sans-serif;
     font-size: 32px;
-    font-weight: 400;
+    font-weight: 500;
     display: flex;
     justify-content: flex-end;
     align-items: end;
@@ -102,7 +101,7 @@ li {
     list-style-type: none;
     color: white;
     font-size: 24px;
-    font-family: 'Limelight', Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-family: 'Limelight', Impact, sans-serif;
 }
 
 a {
@@ -123,7 +122,7 @@ a:hover {
 }
 
 .logo {
-    font-family: 'Limelight', 'Audiowide', serif;
+    font-family: 'Limelight', Impact, sans-serif;
     font-weight: 900;
     font-size: 48px;
     color: white;
