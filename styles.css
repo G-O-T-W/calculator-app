@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css?family=Tangerine');
 @import url('https://fonts.googleapis.com/css2?family=Limelight&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&display=swap');
 
@@ -70,7 +69,7 @@ button {
     padding: 8px;
     text-align: center;
     font-weight: 500;
-    font-family: 'Josefin Sans', serif;
+    font-family: serif;
 }
 
 #allClearKey {
@@ -86,7 +85,7 @@ button {
     align-self: center;
     font-size: 32px;
     color: white;
-    font-family: 'Limelight', 'Josefin Sans', sans;
+    font-family: 'Limelight', Impact, sans-serif;
     
 }
 
