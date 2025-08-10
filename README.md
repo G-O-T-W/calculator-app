@@ -1,5 +1,5 @@
 # Calculator Application
-Demo: ![Cal-C][https://g-o-t-w.github.io/calculator-app/]
+Demo: [Cal-C](https://g-o-t-w.github.io/calculator-app/)
 
 ## Project Description
 This project is a browser-based calculator that performs basic arithmetic operations such as addition, subtraction, multiplication, and division. It is designed to be intuitive, responsive, and feature-rich, meeting all the functionality expected from a basic calculator. Additional features include error handling, keyboard support, and support for floating-point numbers.
